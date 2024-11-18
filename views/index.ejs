@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <title>Messages</title>
+  </head>
+  <body>
+    <h1>Messages</h1>
+    <% if (locals.user) { %>
+    <h1>Hi <%= user.first_name %>!</h1>
+    <a href="/log-out">
+      <button>Log Out</button>
+    </a>
+    <a href="/new-message">
+      <button>New Message</button>
+    </a>
+    <% } else { %>
+    <h1>Restricted Access</h1>
+    <a href="/sign-up">
+      <button>Sign Up</button>
+    </a>
+    <a href="/log-in">
+      <button>Log In</button>
+    </a>
+    <% } %> <% messages.map((message) => { %>
+    <li>
+      <% if (locals.user) { %>
+      <div><%= message.username %></div>
+      <% } %>
+      <div><%= message.message %></div>
+      <% if (locals.user && user.admin) { %>
+      <a href="/delete/<%= message.id %>">
+        <button>Delete</button>
+      </a>
+      <% } %>
+    </li>
+    <% }) %>
+  </body>
+</html>
